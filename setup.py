@@ -315,9 +315,10 @@ def setup_package():
     # Build up the set of Extension objects
     extensions = [makeExtension(name) for name in extNames]
 
-    here = os.path.abspath(os.path.dirname(__file__))
-    with open(os.path.join(here, "README.rst")) as f:
-        long_description = f.read()
+    long_description = """ PySLURM is a Python/Cython extension module to the
+Simple Linux Unified Resource Manager (SLURM) API.  It can be used to contact
+slurmctld.  SLURM is typically used on HPC clusters such as those listed on the
+TOP500 but can used on the smallest to the largest cluster."""
 
     setup(
         name="pyslurm",
