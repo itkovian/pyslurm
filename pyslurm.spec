@@ -16,10 +16,21 @@ URL:		https://github.com/PySlurm/pyslurm
 %global pyslurm_source_dir %{name}-%{version}-%{rel}
 %endif
 
+
 Source:         %{pyslurm_source_dir}.tar.gz
 #Source0:	https://github.com/PySlurm/pyslurm/archive/%{pyslcommit}/archive/%{pkgname}.tar.gz#/%{pkgname}-%{pyslcommit}.tar.gz
 
-BuildRequires:	slurm-devel >= %{version}, Cython, python-devel
+%if 0%{?rhel} == 8
+BuildRequires:	python3-Cython, python36-devel
+%global usepython python3
+%global usepython_sitearch %{python3_sitearch}
+%else
+BuildRequires:	Cython, python-devel
+%global usepython python
+%global usepython_sitearch %{python_sitearch}
+%endif
+
+BuildRequires:	slurm-devel >= %{version}
 Requires:	slurm
 
 %description
@@ -29,17 +40,17 @@ This module provides a low-level Python wrapper around the Slurm C-API using Cyt
 %setup -q -n %{pyslurm_source_dir}
 
 %build
-%{__python} setup.py build
+%{usepython} setup.py build
 
 %install
-%{__python} setup.py install --skip-build --root $RPM_BUILD_ROOT
+%{usepython} setup.py install --skip-build --root $RPM_BUILD_ROOT
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
 %files
 %doc CONTRIBUTORS.rst COPYING.txt README.rst THANKS.rst
-%{python_sitearch}/*
+%{usepython_sitearch}/*
 
 %changelog
 * Tue May 29 2018 Andy Georges <andy.georges@ugent.be> - Adjusted for HPC UGent
