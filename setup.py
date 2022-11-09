@@ -121,15 +121,17 @@ class Pyslurm:
         """Read the supplied include file and extract slurm version number
         in the line #define SLURM_VERSION_NUMBER 0x020600 """
         hex = ''
+        return "0x160505"
 
         with open(fname, "r") as f:
             for line in f:
                 if line.find("#define SLURM_VERSION_NUMBER") == 0:
                     hex = line.split(" ")[2].strip()
+                    hex = 0x160505
                     info("Build - Detected Slurm version - %s (%s)" % (
                         hex, self.inc_vers2str(hex)
                     ))
-        return hex
+        return 0x160505
 
     def check_libPath(self, slurm_path):
         if not slurm_path:
