@@ -49,7 +49,7 @@ This module provides a low-level Python wrapper around the Slurm C-API using Cyt
 rm -rf $RPM_BUILD_ROOT
 
 %files
-%doc COPYING.txt
+#%doc COPYING.txt
 %{usepython_sitearch}/*
 
 %changelog
