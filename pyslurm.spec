@@ -43,7 +43,7 @@ This module provides a low-level Python wrapper around the Slurm C-API using Cyt
 %{usepython} setup.py build
 
 %install
-%{usepython} setup.py install --skip-build --root $RPM_BUILD_ROOT
+%{usepython} setup.py install --root $RPM_BUILD_ROOT
 
 %clean
 rm -rf $RPM_BUILD_ROOT
