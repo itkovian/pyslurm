@@ -1,6 +1,6 @@
 # SPEC file taken from https://centos.pkgs.org/7/puias-computational-x86_64/python-pyslurm-17.02-1.gitab899c6.sdl7.x86_64.rpm.html
 Name:		pyslurm
-Version:	22.05.1
+Version:	23.2.2
 %global	rel     1
 Release:	%{rel}%{gittag}%{?dist}.ug
 Summary:	PySlurm: Slurm Interface for Python
