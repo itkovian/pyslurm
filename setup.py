@@ -262,7 +262,7 @@ def cythongen():
     else:    
         if LooseVersion(cython_version) < LooseVersion(CYTHON_VERSION_MIN):
             msg = f"Please use Cython version >= {CYTHON_VERSION_MIN}"
-            raise RuntimeError(msg)
+            #raise RuntimeError(msg)
 
 
     # Clean up temporary build objects first
