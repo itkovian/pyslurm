@@ -25,7 +25,7 @@ BuildRequires:	python3-Cython, python36-devel
 %global usepython python3
 %global usepython_sitearch %{python3_sitearch}
 %elif 0%{?rhel} == 9
-BuildRequires:	python3-Cython, python39-devel
+BuildRequires:	python3-Cython, python3-devel
 %global usepython python3
 %global usepython_sitearch %{python3_sitearch}
 %%else
