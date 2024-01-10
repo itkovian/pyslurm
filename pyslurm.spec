@@ -24,7 +24,11 @@ Source:         %{pyslurm_source_dir}.tar.gz
 BuildRequires:	python3-Cython, python36-devel
 %global usepython python3
 %global usepython_sitearch %{python3_sitearch}
-%else
+%elif 0%{?rhel} == 9
+BuildRequires:	python3-Cython, python39-devel
+%global usepython python3
+%global usepython_sitearch %{python3_sitearch}
+%%else
 BuildRequires:	Cython, python-devel
 %global usepython python
 %global usepython_sitearch %{python_sitearch}
