@@ -1,51 +1,62 @@
-%global slurm_version 24.05
-%global slurm_patch 3
-%global commit e673a104053d30253c444b6077f3562694e04fca
-%global snapshot 1.gite673a
+# SPEC file taken from https://centos.pkgs.org/7/puias-computational-x86_64/python-pyslurm-17.02-1.gitab899c6.sdl7.x86_64.rpm.html
+Name:		pyslurm
+Version:	23.11.3
+%global	rel     1
+Release:	%{rel}%{gittag}%{?dist}.ug
+Summary:	PySlurm: Slurm Interface for Python
 
-Name:           python-pyslurm
-Version:        %{slurm_version}.0^%{snapshot}
-Release:        1.bx%{?dist}
-Summary:        Python Interface to Slurm
+Group:		Development/Libraries
+License:	GPLv2
+URL:		https://github.com/PySlurm/pyslurm
 
-License:        GPL-2.0
-URL:            https://pyslurm.github.io/
-Source:         https://github.com/vub-hpc/pyslurm/archive/%{commit}.tar.gz
+# when the rel number is one, the directory name does not include it
+%if "%{rel}" == "1"
+%global pyslurm_source_dir %{name}-%{version}
+%else
+%global pyslurm_source_dir %{name}-%{version}-%{rel}
+%endif
 
-%global _description %{expand:
-PySlurm is the Python client library for the Slurm Workload Manager.}
 
-%description %_description
+Source:         %{pyslurm_source_dir}.tar.gz
+#Source0:	https://github.com/PySlurm/pyslurm/archive/%{pyslcommit}/archive/%{pkgname}.tar.gz#/%{pkgname}-%{pyslcommit}.tar.gz
 
-%package -n python3-pyslurm
-Summary:        %{summary}
-BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
-BuildRequires:  python3-Cython
-BuildRequires:  slurm-devel == %{slurm_version}.%{slurm_patch}
+%if 0%{?rhel} == 8
+BuildRequires:	python3-Cython, python36-devel
+%global usepython python3
+%global usepython_sitearch %{python3_sitearch}
+%elif 0%{?rhel} == 9
+BuildRequires:	python3-Cython, python3-devel
+%global usepython python3
+%global usepython_sitearch %{python3_sitearch}
+%%else
+BuildRequires:	Cython, python-devel
+%global usepython python
+%global usepython_sitearch %{python_sitearch}
+%endif
 
-Requires: slurm == %{slurm_version}.%{slurm_patch}
+BuildRequires:	slurm-devel >= %{version}
+Requires:	slurm
 
-%description -n python3-pyslurm %_description
+%description
+This module provides a low-level Python wrapper around the Slurm C-API using Cython.
 
 %prep
-%autosetup -p0 -n pyslurm-%{commit}
+%setup -q -n %{pyslurm_source_dir}
 
 %build
-%py3_build
+%{usepython} setup.py build
 
 %install
-%py3_install
+%{usepython} setup.py install --root $RPM_BUILD_ROOT
 
-# Testing disabled
-# PySlurm needs a working Slurm environment
+%clean
+rm -rf $RPM_BUILD_ROOT
 
-%files -n python3-pyslurm
-%license COPYING.txt
-%doc README.md
-%{python3_sitearch}/pyslurm-*.egg-info/
-%{python3_sitearch}/pyslurm/
+%files
+#%doc COPYING.txt
+%{usepython_sitearch}/*
 
 %changelog
-* Wed Sep 4 2024 Alex Domingo <alex.domingo.toro@vub.be>
-- Initial version of the spec file for Slurm 24.05
+* Tue May 29 2018 Andy Georges <andy.georges@ugent.be> - Adjusted for HPC UGent
+* Fri May 19 2017 Josko Plazonic <plazonic@princeton.edu> - 17.02-1
+- initial build
