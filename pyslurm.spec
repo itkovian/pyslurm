@@ -22,11 +22,11 @@ URL:		https://github.com/PySlurm/pyslurm
 Source:         %{pyslurm_source_dir}.tar.gz
 #Source0:	https://github.com/PySlurm/pyslurm/archive/%{pyslcommit}/archive/%{pkgname}.tar.gz#/%{pkgname}-%{pyslcommit}.tar.gz
 
-%if 0%{?rhel} == 8
+%if %{?rhel} == 8
 BuildRequires:	python3-Cython, python36-devel
 %global usepython python3
 %global usepython_sitearch %{python3_sitearch}
-%elif 0%{?rhel} == 9
+%elif %{?rhel} == 9
 BuildRequires:	python3-Cython, python3-devel
 %global usepython python3
 %global usepython_sitearch %{python3_sitearch}
