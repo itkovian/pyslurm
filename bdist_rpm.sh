@@ -1,15 +1,20 @@
 #!/bin/bash
 
-topdir=$PWD
+VERSION=$(grep "Version:.*[0-9]" pyslurm.spec | tr -s " " |  awk '{print $2;}')
+RELEASE=$(grep "%global.*rel.*[-1-9]" pyslurm.spec | tr -s " " | awk '{print $3}')
 
-export BDISTRPMBASEDIR=${topdir}/rpmbuild
-rm -rf "${BDISTRPMBASEDIR}"
-mkdir -p "${BDISTRPMBASEDIR}"/{BUILD,RPMS,SRPMS,SOURCES}
+echo $VERSION
+echo $RELEASE
 
-./buildrpmfromspec.sh
+if [ "${RELEASE}" -gt 1 ]; then
+    SUFFIX=${VERSION}-${RELEASE}
+else
+    SUFFIX=${VERSION}
+fi
 
-cd "$topdir" || exit
-rm -rf dist
-mkdir -p dist
+GITTAG=$(git log --format=%ct.%h -1)
 
-find "$BDISTRPMBASEDIR" -regex '.*/RPMS/.*rpm' -not -name '*debuginfo*' -print0 | xargs -0 -I{} cp -a '{}' dist
+mkdir -p BUILD SOURCES SPECS RPMS BUILDROOT
+git archive --format=tar.gz -o "SOURCES/pyslurm-${SUFFIX}.tar.gz" --prefix="pyslurm-${SUFFIX}/" HEAD
+cp pyslurm.spec "SPECS"
+rpmbuild --define "gittag ${GITTAG}" --define "_topdir $PWD" -ba SPECS/pyslurm.spec
