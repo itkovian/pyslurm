@@ -16,7 +16,7 @@ URL:		https://github.com/PySlurm/pyslurm
 %global pyslurm_source_dir %{name}-%{version}-%{rel}
 %endif
 
-%define _build_id_links none
+# %define _build_id_links none
 
 
 Source:         %{pyslurm_source_dir}.tar.gz
