@@ -28,7 +28,7 @@ BuildRequires:	python3-Cython, python36-devel
 BuildRequires:	python3-Cython, python3-devel
 %global usepython python3
 %global usepython_sitearch %{python3_sitearch}
-%%else
+%else
 BuildRequires:	Cython, python-devel
 %global usepython python
 %global usepython_sitearch %{python_sitearch}
