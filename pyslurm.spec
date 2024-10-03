@@ -2,7 +2,7 @@
 Name:		pyslurm
 Version:	24.05
 %global	rel     1
-Release:	%{rel}%{gittag}%{?dist}.ug
+Release:	%{rel}.%{gittag}%{?dist}.ug
 Summary:	PySlurm: Slurm Interface for Python
 
 Group:		Development/Libraries
