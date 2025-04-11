@@ -1,5 +1,5 @@
 #########################################################################
-# helpers.pxd - basic helper functions
+# slurmctld.pyx - pyslurm slurmctld api
 #########################################################################
 # Copyright (C) 2023 Toni Harzendorf <toni.harzendorf@gmail.com>
 #
@@ -22,12 +22,41 @@
 # cython: c_string_type=unicode, c_string_encoding=utf8
 # cython: language_level=3
 
-from pyslurm cimport slurm
-from pyslurm.slurm cimport xfree, try_xmalloc, xmalloc
-from libc.stdint cimport uint8_t, uint16_t, uint32_t, uint64_t
-from pyslurm.utils cimport cstr
-from libc.stdlib cimport free
+from pyslurm.core.error import verify_rpc, RPCError
 
-cpdef uid_to_name(uint32_t uid, err_on_invalid=*, dict lookup=*)
-cpdef gid_to_name(uint32_t gid, err_on_invalid=*, dict lookup=*)
-cpdef gres_from_tres_dict(dict tres_dict)
+
+cdef class Config:
+
+    def __cinit__(self):
+        self.ptr = NULL
+
+    def __init__(self, job_id):
+        raise RuntimeError("Cannot instantiate class directly")
+
+    def __dealloc__(self):
+        slurm_free_ctl_conf(self.ptr)
+        self.ptr = NULL
+
+    @staticmethod
+    def load():
+        cdef Config conf = Config.__new__(Config)
+        verify_rpc(slurm_load_ctl_conf(0, &conf.ptr))
+        return conf
+        
+    @property
+    def cluster(self):
+        return cstr.to_unicode(self.ptr.cluster_name)
+
+    @property
+    def preempt_mode(self):
+        cdef char *tmp = slurm_preempt_mode_string(self.ptr.preempt_mode)
+        return cstr.to_unicode(tmp)
+
+    @property
+    def suspend_program(self):
+        return cstr.to_unicode(self.ptr.suspend_program)
+
+    @property
+    def resume_program(self):
+        return cstr.to_unicode(self.ptr.resume_program)
+

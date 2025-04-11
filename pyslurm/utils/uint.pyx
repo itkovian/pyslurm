@@ -19,7 +19,7 @@
 # with PySlurm; if not, write to the Free Software Foundation, Inc.,
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 #
-# cython: c_string_type=unicode, c_string_encoding=default
+# cython: c_string_type=unicode, c_string_encoding=utf8
 # cython: language_level=3
 
 from pyslurm.constants import UNLIMITED
@@ -179,6 +179,8 @@ cdef u8_set_bool_flag(uint8_t *flags, boolean, true_flag, false_flag=0):
 cdef u16_set_bool_flag(uint16_t *flags, boolean, true_flag, false_flag=0):
     flags[0] = uint_set_bool_flag(flags[0], boolean, true_flag, false_flag)
 
+cdef u32_set_bool_flag(uint32_t *flags, boolean, true_flag, false_flag=0):
+    flags[0] = uint_set_bool_flag(flags[0], boolean, true_flag, false_flag)
 
 cdef u32_set_bool_flag(uint32_t *flags, boolean, true_flag, false_flag=0):
     flags[0] = uint_set_bool_flag(flags[0], boolean, true_flag, false_flag)
@@ -191,6 +193,8 @@ cdef u64_set_bool_flag(uint64_t *flags, boolean, true_flag, false_flag=0):
 cdef u16_parse_bool_flag(uint16_t flags, flag):
     return uint_parse_bool_flag(flags, flag, slurm.NO_VAL16)
 
+cdef u32_parse_bool_flag(uint32_t flags, flag):
+    return uint_parse_bool_flag(flags, flag, slurm.NO_VAL16)
 
 cdef u8_parse_bool_flag(uint8_t flags, flag):
     return uint_parse_bool_flag(flags, flag, slurm.NO_VAL8)

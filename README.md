@@ -2,6 +2,15 @@
 
 pyslurm is the Python client library for the [Slurm Workload Manager](https://slurm.schedmd.com)
 
+## Fork from VUB-HPC
+This fork adds specific tooling and patches to PySlurm that are needed to build
+and install this software in our HPC clusters.
+
+Command to build the RPM of PySlurm from our build servers:
+```
+clusterbuildrpm -d -r pub -f vub-hpc -p pyslurm -b vub-hpc
+```
+
 ## Requirements
 
 * [Slurm](https://slurm.schedmd.com) - Slurm shared library and header files

@@ -17,7 +17,7 @@
 # with this program; if not, write to the Free Software Foundation, Inc.,
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 #
-# cython: c_string_type=unicode, c_string_encoding=default
+# cython: c_string_type=unicode, c_string_encoding=utf8
 # cython: language_level=3
 
 from pyslurm cimport slurm
