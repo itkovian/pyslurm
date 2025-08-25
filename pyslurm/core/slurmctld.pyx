@@ -26,6 +26,7 @@
 from pyslurm.core.error import verify_rpc, RPCError
 
 cimport pyslurm.slurm as slurm
+cimport pyslurm.utils.cstr as cstr
 
 cdef class Config:
 
@@ -44,7 +45,7 @@ cdef class Config:
     @staticmethod
     def load():
         cdef Config conf = Config.__new__(Config)
-        verify_rpc(slurm_load_ctl_conf(0, &conf.ptr))
+        verify_rpc(slurm.slurm_load_ctl_conf(0, &conf.ptr))
         return conf
         
     @property
@@ -53,7 +54,7 @@ cdef class Config:
 
     @property
     def preempt_mode(self):
-        cdef char *tmp = slurm_preempt_mode_string(self.ptr.preempt_mode)
+        cdef char *tmp = slurm.slurm_preempt_mode_string(self.ptr.preempt_mode)
         return cstr.to_unicode(tmp)
 
     @property
