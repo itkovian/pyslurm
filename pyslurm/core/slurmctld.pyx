@@ -27,6 +27,8 @@ from pyslurm.core.error import verify_rpc, RPCError
 
 cdef class Config:
 
+    cdef void* ptr 
+
     def __cinit__(self):
         self.ptr = NULL
 
