@@ -24,7 +24,8 @@
 
 
 from pyslurm.core.error import verify_rpc, RPCError
-cimport pyslurm.slurm
+
+cimport pyslurm.slurm as slurm
 
 cdef class Config:
 
@@ -37,7 +38,7 @@ cdef class Config:
         raise RuntimeError("Cannot instantiate class directly")
 
     def __dealloc__(self):
-        slurm_free_ctl_conf(self.ptr)
+        slurm.slurm_free_ctl_conf(self.ptr)
         self.ptr = NULL
 
     @staticmethod
