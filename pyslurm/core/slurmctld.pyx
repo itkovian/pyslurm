@@ -29,7 +29,7 @@ cimport pyslurm.slurm as slurm
 
 cdef class Config:
 
-    cdef void* ptr 
+    cdef slurm.slurm_conf_t* ptr
 
     def __cinit__(self):
         self.ptr = NULL
