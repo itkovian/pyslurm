@@ -22,10 +22,22 @@
 # cython: c_string_type=unicode, c_string_encoding=utf8
 # cython: language_level=3
 
+
 from pyslurm.core.error import verify_rpc, RPCError
 
+from pyslurm cimport slurm
+from pyslurm.slurm cimport (
+    slurm_free_ctl_conf,
+    slurm_conf_t,
+    slurm_load_ctl_conf,
+    slurm_preempt_mode_string,
+)
+
+cimport pyslurm.utils.cstr as cstr
 
 cdef class Config:
+
+    cdef slurm_conf_t* ptr
 
     def __cinit__(self):
         self.ptr = NULL
