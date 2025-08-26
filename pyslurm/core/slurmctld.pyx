@@ -25,7 +25,14 @@
 
 from pyslurm.core.error import verify_rpc, RPCError
 
-#cimport pyslurm.slurm as slurm
+from pyslurm cimport slurm
+from pyslurm.slurm cimport (
+    slurm_free_ctl_conf,
+    slurm_conf_t,
+    slurm_load_ctl_conf,
+    slurm_preempt_mode_string,
+)
+
 cimport pyslurm.utils.cstr as cstr
 
 cdef class Config:

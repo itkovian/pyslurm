@@ -36,7 +36,7 @@ from pyslurm.core.error import (
 from pyslurm.core import slurmctld
 
 # The old API in deprecated.pyx
-from pyslurm.deprecated import *
+#from pyslurm.deprecated import *
 
 # Initialize slurm api
 from pyslurm.api import slurm_init, slurm_fini
