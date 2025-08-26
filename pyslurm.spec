@@ -1,4 +1,4 @@
-%define python3_pkgversion 3.11
+%define python3_pkgversion 3
 
 Name:            python-pyslurm
 Version:         24.11.0
@@ -31,8 +31,8 @@ pyslurm is a Python interface to Slurm
 %prep
 %autosetup -p1 -n pyslurm-%{version}
 
-%generate_buildrequires
-%pyproject_buildrequires -R
+#%generate_buildrequires
+#%pyproject_buildrequires -R
 
 %build
 %pyproject_wheel
