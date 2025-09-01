@@ -1,6 +1,6 @@
 %define python3_pkgversion 3
 
-Name:            python-pyslurm
+Name:            python3-pyslurm
 Version:         24.11.0
 %define rel      1
 Release:         %{rel}%{?dist}
@@ -22,7 +22,7 @@ Requires:        python%{python3_pkgversion}
 %description
 pyslurm is a Python interface to Slurm
 
-%package -n python%{python3_pkgversion}-pyslurm
+#%package -n python%{python3_pkgversion}-pyslurm
 Summary:        %{summary}
 
 %description -n python%{python3_pkgversion}-pyslurm
