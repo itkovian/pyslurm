@@ -1,9 +1,9 @@
-%define python3_pkgversion 3
+%define python3_pkgversion 39
 
-Name:            python3-pyslurm
+Name:            python39-pyslurm
 Version:         24.11.0
 %define rel      1
-Release:         %{rel}%{?dist}
+Release:         %{rel}%{gittag}%{?dist}
 Summary:         Python interface to Slurm
 License:         GPLv2+
 URL:             https://github.com/PySlurm/pyslurm
@@ -12,8 +12,8 @@ Source:          pyslurm-%{version}.tar.gz
 BuildRequires:   python%{python3_pkgversion}-devel
 BuildRequires:   python%{python3_pkgversion}-setuptools
 BuildRequires:   python%{python3_pkgversion}-wheel
-BuildRequires:   python%{python3_pkgversion}-Cython
-BuildRequires:   python%{python3_pkgversion}-packaging
+#BuildRequires:   python%{python3_pkgversion}-Cython
+#BuildRequires:   python%{python3_pkgversion}-packaging
 BuildRequires:   python-rpm-macros
 BuildRequires:   slurm-devel >= 24.11.0
 BuildRequires:   slurm >= 24.11.0
