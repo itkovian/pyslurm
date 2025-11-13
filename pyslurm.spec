@@ -1,13 +1,13 @@
-# SPEC file taken from https://centos.pkgs.org/7/puias-computational-x86_64/python-pyslurm-17.02-1.gitab899c6.sdl7.x86_64.rpm.html
-Name:		pyslurm
-Version:	24.05
-%global	rel     1
-Release:	%{rel}.%{gittag}%{?dist}.ug
-Summary:	PySlurm: Slurm Interface for Python
+%define python3_pkgversion 3
 
-Group:		Development/Libraries
-License:	GPLv2
-URL:		https://github.com/PySlurm/pyslurm
+Name:            python3-pyslurm
+Version:         24.11.0
+%define rel      1
+Release:         %{rel}%{?dist}
+Summary:         Python interface to Slurm
+License:         GPLv2+
+URL:             https://github.com/PySlurm/pyslurm
+Source:          pyslurm-%{version}.tar.gz
 
 # when the rel number is one, the directory name does not include it
 %if "%{rel}" == "1"
@@ -26,27 +26,38 @@ BuildRequires:	python3-Cython, python36-devel
 
 BuildRequires:	slurm-devel >= %{version}
 Requires:	slurm
+BuildRequires:   python%{python3_pkgversion}-devel
+BuildRequires:   python%{python3_pkgversion}-setuptools
+BuildRequires:   python%{python3_pkgversion}-wheel
+BuildRequires:   python%{python3_pkgversion}-Cython
+BuildRequires:   python%{python3_pkgversion}-packaging
+BuildRequires:   python-rpm-macros
+BuildRequires:   slurm-devel >= 24.11.0
+BuildRequires:   slurm >= 24.11.0
+Requires:        python%{python3_pkgversion}
 
 %description
-This module provides a low-level Python wrapper around the Slurm C-API using Cython.
+pyslurm is a Python interface to Slurm
+
+#%package -n python%{python3_pkgversion}-pyslurm
+Summary:        %{summary}
+
+%description -n python%{python3_pkgversion}-pyslurm
+pyslurm is a Python interface to Slurm
 
 %prep
-%setup -q -n %{pyslurm_source_dir}
+%autosetup -p1 -n pyslurm-%{version}
+
+#%generate_buildrequires
+#%pyproject_buildrequires -R
 
 %build
-%{usepython} setup.py build
+%pyproject_wheel
 
 %install
-%{usepython} setup.py install --root $RPM_BUILD_ROOT
+%pyproject_install
+%pyproject_save_files pyslurm
 
-%clean
-rm -rf $RPM_BUILD_ROOT
-
-%files
-#%doc COPYING.txt
-%{usepython_sitearch}/*
-
-%changelog
-* Tue May 29 2018 Andy Georges <andy.georges@ugent.be> - Adjusted for HPC UGent
-* Fri May 19 2017 Josko Plazonic <plazonic@princeton.edu> - 17.02-1
-- initial build
+%files -f %{pyproject_files}
+%license COPYING.txt
+%doc README.md
