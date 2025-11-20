@@ -28,7 +28,7 @@ export PYSLURM_BUILD_JOBS="$OPT_JOBS"
 
 if [[ $PY_VER == "3.6" ]]
 then
-    pip install -v .
+    pip3 install -v .
 elif ${OPT_DEV}
 then
     pip install -v --no-build-isolation --config-settings="--build-option=build_ext -j${OPT_JOBS}" -e .
