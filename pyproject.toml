@@ -6,6 +6,7 @@ requires = [
     "Cython>=0.29.37",
     "packaging>=21.3"
 ]
+requires-python = "~=3.9.0"
 
 [tool.flake8]
 filename = ["*.py", "*.pyx", "*.pxd"]
