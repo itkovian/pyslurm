@@ -3,7 +3,7 @@
 Name:            python3-pyslurm
 Version:         24.11.0
 %define rel      1
-Release:         %{rel}%{?dist}
+Release:         %{rel}%{gittag}%{?dist}
 Summary:         Python interface to Slurm
 License:         GPLv2+
 URL:             https://github.com/PySlurm/pyslurm
