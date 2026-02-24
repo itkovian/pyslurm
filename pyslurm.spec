@@ -1,9 +1,9 @@
-%define python3_pkgversion 3.11
+%define python3_pkgversion 3
 
 Name:            python-pyslurm
 Version:         25.11.0
 %define rel      1
-Release:         %{rel}%{?dist}
+Release:         %{rel}%{gittag}%{?dist}
 Summary:         Python interface to Slurm
 License:         GPLv2+
 URL:             https://github.com/PySlurm/pyslurm
@@ -22,7 +22,7 @@ Requires:        python%{python3_pkgversion}
 %description
 pyslurm is a Python interface to Slurm
 
-%package -n python%{python3_pkgversion}-pyslurm
+#%package -n python%{python3_pkgversion}-pyslurm
 Summary:        %{summary}
 
 %description -n python%{python3_pkgversion}-pyslurm
@@ -31,8 +31,8 @@ pyslurm is a Python interface to Slurm
 %prep
 %autosetup -p1 -n pyslurm-%{version}
 
-%generate_buildrequires
-%pyproject_buildrequires -R
+#%generate_buildrequires
+#%pyproject_buildrequires -R
 
 %build
 %pyproject_wheel
