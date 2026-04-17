@@ -81,7 +81,7 @@ INSTALL_DIR="${STAGING_DIR}/usr/lib/python3.9/site-packages"
 mkdir -p "${INSTALL_DIR}"
 
 # Use uv pip to install the wheel to the staging directory
-uv pip install --target "${INSTALL_DIR}" --no-deps dist/*.whl
+uv pip install --python python3.9 --target "${INSTALL_DIR}" --no-deps dist/*.whl
 
 # Clean up lock files
 find "${STAGING_DIR}" -name "*.lock" -delete
