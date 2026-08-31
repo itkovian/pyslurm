@@ -21,6 +21,10 @@ while [[ $# -gt 0 ]]; do
             DEFAULT_VERSION="${1#*=}"
             shift
             ;;
+        --distro=*)
+            DEFAULT_DISTRO="${1#*=}"
+            shift
+            ;;
         *)
             echo "Unknown option: $1"
             echo "Usage: $0 [--gittag] [--name=<name>] [--version=<version>]"
@@ -97,7 +101,7 @@ eval "fpm -s dir -t rpm \
     --architecture x86_64 \
     --depends python3.9 \
     ${RPM_DEPS} \
-    --rpm-dist el9 \
+    --rpm-dist ${DEFAULT_DISTRO} \
     -C ${STAGING_DIR} \
     usr/lib/python3.9/site-packages"
 
